@@ -23,13 +23,15 @@ const Schedule = () => {
         formConfig,
         tooltipState,
         compUpdate,
+        appState,
         actions } = useContext(Context)
 
     useEffect(() => {
         const getEvents = async () => {
             const props = {
                 collectionName: "classes",
-                method: "get"
+                method: "get",
+                author: appState.uid
             }
             const events = await newClassForm.dbPath(props)();
             actions({

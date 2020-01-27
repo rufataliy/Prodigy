@@ -17,6 +17,7 @@ const Vocabulary = () => {
         initialValues,
         formConfig,
         vocabState,
+        appState,
         compUpdate,
         actions } = useContext(Context)
 
@@ -27,7 +28,8 @@ const Vocabulary = () => {
     const getVocabs = async () => {
         const props = {
             collectionName: "vocabularies",
-            method: "get"
+            method: "get",
+            author: appState.uid
         }
         const vocabs = await newClassForm.dbPath(props)();
         actions({
@@ -38,7 +40,8 @@ const Vocabulary = () => {
     const getAllWords = async () => {
         const props = {
             collectionName: "words",
-            method: "get"
+            method: "get",
+            author: appState.uid
         }
         const allWords = await newClassForm.dbPath(props)();
         actions({
@@ -61,6 +64,7 @@ const Vocabulary = () => {
         const props = {
             collectionName: "words",
             method: "getWhere",
+            author: appState.uid,
             key: key,
             operator: operator,
             searchedValue: searchedValue
