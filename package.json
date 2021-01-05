@@ -45,7 +45,7 @@
         "@fullcalendar/timegrid": "^4.3.0",
         "antd": "^3.26.7",
         "auth0-js": "^9.12.1",
-        "axios": "^0.19.1",
+        "axios": "^0.21.1",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
