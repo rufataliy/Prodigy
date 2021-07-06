@@ -8,7 +8,7 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-    watch: true,
+    watch: false,
     entry: {
         main: './src/index.js'
     },
@@ -50,7 +50,12 @@ module.exports = {
                     }
 
                 ]
-            }
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader', ],
+
+            },
         ]
     },
     plugins: [

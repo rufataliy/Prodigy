@@ -8,7 +8,7 @@ const auth0ToFirebase = async() => {
 }
 
 const firebaseCustomToken = async function setFirebaseCustomToken(tokenFromAuth) {
-    const firebaseTokenRequest = await fetch('http://localhost:3001/firebase', {
+    const firebaseTokenRequest = await fetch('https://localhost:3001/firebase', {
         headers: {
             'Authorization': `Bearer ${tokenFromAuth}`,
         },

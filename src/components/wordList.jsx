@@ -5,14 +5,14 @@ import Context from "../store/context"
 
 
 const WordList = (props) => {
-    const { vocabState } = useContext(Context)
+    const { compUpdate } = useContext(Context)
     useEffect(() => {
 
-    }, [vocabState.allWords])
+    }, [compUpdate])
     return (
 
         <div>
-            {console.log("wordlist")}
+            {console.log("wordlist rendered")}
             < List
                 itemLayout="vertical"
                 size="middle"
@@ -21,7 +21,6 @@ const WordList = (props) => {
                 locale={props.emptyText}
                 pagination={{
                     onChange: page => {
-                        console.log(page);
                     },
                     pageSize: 6,
                 }}
@@ -32,7 +31,7 @@ const WordList = (props) => {
                         key={word.phrase}
                         actions={[
                             <Icon style={{ fontSize: 1.5 + 'em' }, { margin: 5 + "px" }} type="edit" onClick={() => props.edit(word)} />,
-                            <Icon style={{ fontSize: 1.5 + 'em' }, { margin: 5 + "px" }} type="delete" onClick={() => props.delete(word)} />
+                            <Icon style={{ fontSize: 1.5 + 'em' }, { margin: 5 + "px" }} type="delete" onClick={() => props.delete(word.id)} />
                         ]}
                     >
                         <List.Item.Meta

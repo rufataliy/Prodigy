@@ -28,7 +28,8 @@ const useGlobalState = () => {
     }
     const vocabStateGlobal = {
         vocabs: [],
-        allWords: []
+        allWords: [],
+        searchTerm: ""
     }
     const initialValuesGlobal = {
         newClass: {

@@ -12,7 +12,7 @@ class Auth0Client {
             domain: 'prodigy-gate.auth0.com',
             audience: 'https://prodigy-gate.auth0.com/userinfo',
             clientID: 'miketN2zFghcI3DiW2pkdBOYmA3uLslb',
-            redirectUri: 'http://localhost:3001',
+            redirectUri: 'https://localhost:3001',
             responseType: 'token id_token',
             scope: 'openid email profile'
         });
@@ -53,7 +53,7 @@ class Auth0Client {
 
     signOut() {
         _auth0Client.logout({
-            returnTo: "http://localhost:3001/",
+            returnTo: "https://localhost:3001",
             clientID: 'miketN2zFghcI3DiW2pkdBOYmA3uLslb',
             federated: true
         })

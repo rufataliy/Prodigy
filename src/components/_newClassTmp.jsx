@@ -1,5 +1,5 @@
 import React from "react"
-import { Input, Radio, SubmitButton, DatePicker, TimePicker, Checkbox } from "@jbuschke/formik-antd"
+import { Input, Radio, SubmitButton, DatePicker, TimePicker, Checkbox } from "formik-antd"
 import { Button } from "antd"
 import { db } from "../firebase/firebase"
 
@@ -117,6 +117,7 @@ export const newClassForm = (() => {
             get: async () => {
                 const data = await db
                     .collection(props.collectionName)
+                    .where("author", "==", props.author)
                     .get()
                     .then(function (querySnapshot) {
                         let a = []
@@ -136,7 +137,9 @@ export const newClassForm = (() => {
             },
             getWhere: async () => {
                 const data = await db
-                    .collection(props.collectionName).where(props.key, props.operator, props.searchedValue)
+                    .collection(props.collectionName)
+                    .where(props.key, props.operator, props.searchedValue)
+                    .where("author", "==", props.author)
                     .get()
                     .then(function (querySnapshot) {
                         let a = []

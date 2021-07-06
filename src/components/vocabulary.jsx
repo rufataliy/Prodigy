@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react"
-import { Collapse, Button, Icon, List, Tabs, Input } from "antd"
+import { Collapse, Button, Icon, Tabs, Input } from "antd"
 import { newClassForm } from "./_newClassTmp.jsx"
 import Context from "../store/context"
 import { MODAL, VOCAB, WORDS, TOPICS, FORM_CONFIG, INITIAL_VALUES, COMP_UPDATE } from "../store/useGlobalState"
@@ -17,6 +17,7 @@ const Vocabulary = () => {
         initialValues,
         formConfig,
         vocabState,
+        appState,
         compUpdate,
         actions } = useContext(Context)
 
@@ -27,7 +28,8 @@ const Vocabulary = () => {
     const getVocabs = async () => {
         const props = {
             collectionName: "vocabularies",
-            method: "get"
+            method: "get",
+            author: appState.uid
         }
         const vocabs = await newClassForm.dbPath(props)();
         actions({
@@ -38,7 +40,8 @@ const Vocabulary = () => {
     const getAllWords = async () => {
         const props = {
             collectionName: "words",
-            method: "get"
+            method: "get",
+            author: appState.uid
         }
         const allWords = await newClassForm.dbPath(props)();
         actions({
@@ -46,24 +49,22 @@ const Vocabulary = () => {
             payload: { ...vocabState, allWords: allWords }
         })
     }
-    const onSearch = (value) => {
-        console.log(value);
-        const result = []
-        vocabState.allWords.map((word) => {
-            if (word.phrase.search(value) != -1 || word.definition.search(value) != -1) {
-                result.push(vocab)
-            }
-        })
+    const onSearch = (event) => {
         actions({
             type: VOCAB,
-            payload: { ...vocabState, allWords: result }
+            payload: { ...vocabState, searchTerm: event.target.value }
         })
-        console.log(result);
+    }
+    const getSearchedWords = () => {
+        return vocabState.allWords.filter((word) => {
+            return word.phrase.search(vocabState.searchTerm) != -1
+        })
     }
     const getTopicWords = async (key, operator, searchedValue) => {
         const props = {
             collectionName: "words",
             method: "getWhere",
+            author: appState.uid,
             key: key,
             operator: operator,
             searchedValue: searchedValue
@@ -219,20 +220,17 @@ const Vocabulary = () => {
                 }
             })
         })
-        onChange()
+        // onChange()
     }
     const addWordBtn = (vocab) => (
 
         <div>
             <Icon style={{ fontSize: 1.5 + 'em' }} type="delete" onClick={(event) => {
-                console.log(formConfig);
                 event.stopPropagation()
                 handleDelete(vocab.id)
             }} />
             <Icon style={{ fontSize: 1.5 + 'em', margin: 5 + 'px' }} type="edit" onClick={(event) => {
                 event.stopPropagation()
-                console.log(vocabState.vocabs);
-
                 handleEditVocab(vocab)
             }} />
             <Icon style={{ fontSize: 1.5 + 'em' }} type="plus-circle" onClick={(event) => {
@@ -265,10 +263,7 @@ const Vocabulary = () => {
                 getAllWords()
                 break;
             case TOPICS:
-                actions({
-                    type: VOCAB,
-                    payload: { ...vocabState, allWords: [] }
-                })
+
                 break;
         }
     }
@@ -293,8 +288,8 @@ const Vocabulary = () => {
                     </Collapse>
                 </TabPane>
                 <TabPane tab="All words" key={WORDS}>
-                    <Input placeholder="Type to search" onChange={onSearch} />
-                    <WordList data={vocabState.allWords}
+                    <Input placeholder="Search" onChange={onSearch} />
+                    <WordList data={getSearchedWords()}
                         emptyText={{ emptyText: "words not found" }}
                         edit={editWord}
                         delete={deleteWord}

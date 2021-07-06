@@ -6,9 +6,10 @@
     "author": "",
     "license": "ISC",
     "scripts": {
-        "start": "node ./dist/server.js",
-        "prod": "NODE_ENV=production node server.js",
-        "build": "rmdir /s /q dist && webpack --mode production hh --config webpack.server.config.js && webpack --mode production --watch",
+        "start": "nodemon ./dist/server.js",
+        "build": "rmdir /s /q dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --watch",
+        "prod": "NODE_ENV=production nodemon server.js",
+        "build-pro": "webpack --mode production --config webpack.server.config.js && webpack --mode production",
         "dbServer": "json-server --watch api/db.json --port 3001"
     },
     "engines": {
@@ -22,6 +23,7 @@
         "@babel/preset-react": "^7.8.3",
         "babel-loader": "^8.0.0-beta.0",
         "css-loader": "^3.4.2",
+        "file-loader": "^5.0.2",
         "filemanager-webpack-plugin": "^2.0.5",
         "html-loader": "^0.5.5",
         "html-webpack-plugin": "^3.2.0",

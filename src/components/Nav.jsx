@@ -6,6 +6,7 @@ import About from "./About";
 import Contact from "./Contact.jsx";
 import Schedule from "./Schedule.jsx";
 import Vocabulary from "./vocabulary.jsx"
+import Home from "./Home.jsx"
 import Context from "../store/context";
 import useGlobalState from "../store/useGlobalState";
 
@@ -39,30 +40,12 @@ const SideNav = () => {
                                 </span>
                             </Link >
                         </Menu.Item>
-                        <Menu.Item key="2" >
-                            <Link className="active item"
-                                to="/About" >
-                                <Icon type="message" theme="filled" />
-                                <span >
-                                    Messages
-                                </span>
-                            </Link >
-                        </Menu.Item>
                         <Menu.Item key="3" >
                             <Link className="active item"
                                 to="/Schedule" >
                                 <Icon type="schedule" />
                                 <span >
                                     Schedule
-                                </span>
-                            </Link >
-                        </Menu.Item>
-                        <Menu.Item key="4" >
-                            <Link className="active item"
-                                to="/Contact" >
-                                <Icon type="lesson" />
-                                <span >
-                                    Classes
                                 </span>
                             </Link >
                         </Menu.Item>
@@ -100,7 +83,7 @@ const SideNav = () => {
                             minHeight: 360
                         }} >
                             <Switch >
-                                <Route path="/" exact />
+                                <Route path="/" exact component={Home} />
                                 <Route path="/Schedule" exact component={Schedule} />
                                 <Route path="/Vocabulary" exact component={Vocabulary} />
                             </Switch >

@@ -5,7 +5,7 @@ import { authTokenFirebAuth0 } from "../firebase/authToFire"
 import useGlobalState from "../store/useGlobalState"
 import Context from "../store/context"
 import { firebaseClient } from "../firebase/firebase"
-
+import { LogoHome } from "./Logo.jsx"
 const App = () => {
     console.log("app rerendered");
     const store = useGlobalState();
@@ -33,7 +33,7 @@ const App = () => {
         <div>
             <Context.Provider value={store}>
                 <TopNav />
-                {appState.loggedIn && <SideNav />}
+                {appState.loggedIn ? <SideNav /> : <LogoHome />}
             </Context.Provider>
         </div>
     )
